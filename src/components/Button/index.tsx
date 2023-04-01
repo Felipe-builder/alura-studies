@@ -1,12 +1,12 @@
-import React from 'react';
-import style from './Button.module.scss';
+import React from "react";
+import style from "./Button.module.scss";
 
-export default class Button extends React.Component {
+interface ButtonProps {
+  children?: React.ReactNode;
+}
+
+export default class Button extends React.Component<ButtonProps> {
   render() {
-    return (
-      <button className={style.button}>
-        Button
-      </button>
-    )
+    return <button className={style.button}>{this.props.children}</button>;
   }
 }
