@@ -15,6 +15,10 @@ function App() {
 
   function selectTask(taskSelected: ITask) {
     setSelected(taskSelected);
+    setTasks(previousTask => previousTask.map(task => ({
+      ...task,
+      selected: task.id === taskSelected.id ? true : false
+    })));
   }
   return (
     <div className={style.AppStyle}>
