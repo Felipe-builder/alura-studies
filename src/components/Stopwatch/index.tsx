@@ -7,10 +7,11 @@ import Clock from "./Clock";
 import style from './Stopwatch.module.scss'
 
 interface Props {
-  selected: ITask | undefined
+  selected: ITask | undefined,
+  finalizeTask: () => void
 }
 
-export default function Stopwatch({ selected }: Props ) {
+export default function Stopwatch({ selected, finalizeTask}: Props ) {
   const [time, setTime] = useState<number>();
  
   useEffect(() => {
@@ -18,15 +19,24 @@ export default function Stopwatch({ selected }: Props ) {
       setTime(timeToSecounds(selected.time))
     }
   }, [selected]);
-  
+
+  function regressive(count: number = 0) {
+    setTimeout(() => {
+      if(count > 0) {
+        setTime(count - 1);
+        return regressive(count - 1);
+      }
+      finalizeTask();
+    }, 1000)
+  }
+
   return (
     <div className={style.stopwatch}>
       <p className={style.title}>Choice one card and start the stopwatch</p>
-      Time: {time}
       <div className={style.clockWrapper}>
-        <Clock/>
+        <Clock time={time} />
       </div>
-      <Button>
+      <Button onClick={() => regressive(time)}>
         Start
       </Button>
     </div>
