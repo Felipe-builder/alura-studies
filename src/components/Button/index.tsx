@@ -1,15 +1,14 @@
 import React from "react";
 import style from "./Button.module.scss";
 
-interface ButtonProps {
+interface Props {
   children?: React.ReactNode;
   type?: "button" | "submit" | "reset" | undefined,
   onClick?: () => void
 }
 
-export default class Button extends React.Component<ButtonProps> {
-  render() {
-    const { type = "button", onClick } = this.props;
-    return <button onClick={onClick} type={type} className={style.button}>{this.props.children}</button>;
-  }
+function Button({ type = "button", onClick, children }: Props) {
+  return <button onClick={onClick} type={type} className={style.button}>{children}</button>;
 }
+
+export default Button;
